@@ -1,0 +1,10 @@
+{
+    "name": "ecommerce-project",
+    "version": "0.1",
+    "scripts": {
+        "start": "react-scripts start"
+    },
+    "devDependencies": {
+        "vite": "^5.2.12"
+    }
+}
