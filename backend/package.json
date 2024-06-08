@@ -4,9 +4,11 @@
     "description": "Descripción del proyecto",
     "type": "module",
     "scripts": {
-        "start": "node src/index.js"
+        "start": "nodemon src/index.js",
+         "dev": "nodemon src/index.js"
     },
     "dependencies": {
+        "dotenv": "^16.4.5",
         "express": "^4.19.2",
         "mssql": "^10.0.2",
         "nodemon": "^3.1.3"

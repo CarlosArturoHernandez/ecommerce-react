@@ -1,13 +1,11 @@
 import app from "./app.js"
+import { getConnection } from "./database/connection.js";
 
-const hostname = '127.0.0.1';
 const port = 4000;
 
-app.get('/', function (req, res) {
-    res.send('Hello World')
-  })
+app.set('port', 4000)
 
-
-app.listen(port)
-
-console.log(`Server running at http://${hostname}:${port}/`)
+app.listen(app.get('port'),() =>{
+  console.log(`Listening on port: ${port}`)
+ getConnection()
+})
