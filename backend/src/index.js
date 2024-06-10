@@ -1,5 +1,5 @@
 import app from "./app.js"
-import { getConnection } from "./database/connection.js";
+import {getConnection} from "./database/connection.js";
 
 const port = 4000;
 
