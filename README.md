@@ -1,6 +1,6 @@
 # eCommerce React
 
-![Logo del eCommerce](https://raw.githubusercontent.com/CarlosArturoHernandez/ecommerce-react/main/frontend/src/assets/e-commerce-logo.png)
+![Logo del eCommerce](https://skillicons.dev/icons?i=js,react)](https://skillicons.dev)
 
 ## Descripción
 
