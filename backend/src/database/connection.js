@@ -14,10 +14,8 @@ database: process.env.DATABASE
 
 export async function getConnection(){
     connection.connect((err)=>{
-        if(err) return console.error('Error al conectarse a la base de datos', err)
-        
-        console.log('Conectado a la base de datos')
-        
+        if(err) return console.error('¡Error al conectarse a la base de datos!', err)
+        console.log('Conexión exitosa a la base de datos.')
     })
 }
 

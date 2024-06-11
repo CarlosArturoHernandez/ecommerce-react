@@ -6,6 +6,6 @@ const port = 4000;
 app.set('port', 4000)
 
 app.listen(app.get('port'),() =>{
-  console.log(`Listening on port: ${port}`)
+  console.log(`Listening on port: http://localhost:${port}`)
  getConnection()
 })
