@@ -1,4 +1,4 @@
-# eCommerce React    
+# eCommerce
 
 ![Logo del eCommerce](https://skillicons.dev/icons?i=js,react,vite,mysql)
 
