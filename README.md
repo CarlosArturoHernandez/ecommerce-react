@@ -1,6 +1,5 @@
 # eCommerce
 
-![Logos](https://skillicons.dev/icons?i=js,react,vite,mysql)
 
 ## Descripción
 
@@ -12,6 +11,7 @@ eCommerce es una aplicación de eCommerce desarrollada con React y Node.js. Prop
     <img src="https://skillicons.dev/icons?i=js,react,vite,mysql,git,docker" />
   </a>
 </p>
+
 - JavaScript
 - Node.js
 - React
