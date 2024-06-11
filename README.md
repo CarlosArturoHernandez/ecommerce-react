@@ -1,6 +1,6 @@
 # eCommerce React    
 
-![Logo del eCommerce](https://skillicons.dev/icons?i=js,react)
+![Logo del eCommerce](https://skillicons.dev/icons?i=js,react,vite,mysql)
 
 ## Descripción
 
