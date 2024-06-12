@@ -32,8 +32,14 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-  
-
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+  } = useForm();
+  const capturaDatos = handleSubmit (data => {
+    console.log(data)
+  })
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -52,8 +58,8 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
+          <Box component="form" onSubmit={capturaDatos} noValidate sx={{ mt: 1 }}>
+            <TextField {...register('email',{required:true})}
               margin="normal"
               required
               fullWidth
@@ -63,16 +69,18 @@ export default function Login() {
               autoComplete="email"
               autoFocus
             />
-            <TextField
+            {errors.email && (<p>Debe introducir correo.</p>)}
+            <TextField {...register('contrasena',{required:true})}
               margin="normal"
               required
               fullWidth
-              name="password"
+              name="contrasena"
               label="Password"
               type="password"
-              id="password"
+              id="contrasena"
               autoComplete="current-password"
             />
+            {errors.contrasena && (<p>Debe introducir contraseña.</p>)}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
