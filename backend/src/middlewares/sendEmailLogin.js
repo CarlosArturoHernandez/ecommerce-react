@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-export const sendEmailLogin = async ( Email, plataform, browser) =>{
+export const sendEmailLogin = async ( email, plataform, browser) =>{
 
 try {
     
@@ -21,7 +21,7 @@ try {
 
     const mensaje = {
         from: process.env.USEREMAIL,
-        to: Email,
+        to: email,
         subject: ` Hola` ,
         text:`<p> Has inciado sesión </p>
         <p>Enviado desde la plataforma ${plataform}</p>
