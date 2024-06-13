@@ -16,6 +16,7 @@ try {
             return res.status(400).json({message: 'Correo invalido'})
         } 
          
+        
         const contrasenaSinValidar = result[0][0].contrasena
 
         const validacionContrasena = await  bcrypt.compare(contrasena, contrasenaSinValidar)
