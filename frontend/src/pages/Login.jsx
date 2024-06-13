@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useForm} from 'react-hook-form'
+import { useAuth } from '../context/AuthContext';
 
 function Copyright(props) {
   return (
@@ -37,9 +38,13 @@ export default function Login() {
     handleSubmit,
     formState: {errors},
   } = useForm();
-  const capturaDatos = handleSubmit (data => {
-    console.log(data)
+
+  const{requestFormData} = useAuth()
+
+  const getData = handleSubmit (data => {
+    requestFormData(data)
   })
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -58,7 +63,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={capturaDatos} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={getData} noValidate sx={{ mt: 1 }}>
             <TextField {...register('email',{required:true})}
               margin="normal"
               required
