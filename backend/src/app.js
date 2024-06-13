@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(useragent.express())
 
 app.use(cors({
-    origin: `https://localhost:${reactPort}`,
+    origin: `http://localhost:${reactPort}`,
     credentials: true
     }))
     app.use(express.static('public'))
