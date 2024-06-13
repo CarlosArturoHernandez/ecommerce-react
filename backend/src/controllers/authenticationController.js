@@ -11,13 +11,13 @@ export const login = async (req, res) =>{
 try {
     connection.query('CALL sp_login(?)', [email], async (error, result) =>{
       
-        if(result[0].length<1) return res.status(404).json({message: 'Correo invalido'})
+        if(result[0].length<1) return res.status(400).json({message: 'Correo invalido'})
          
-        const contrasenaSinValidar = result[0][0].Contrasena
+        const contrasenaSinValidar = result[0][0].contrasena
 
         const validacionContrasena = await  bcrypt.compare(contrasena, contrasenaSinValidar)
   
-        if(!validacionContrasena) return res.status(404).json({message: 'Contrasena invalida'})
+        if(!validacionContrasena) return res.status(400).json({message: 'Contrasena invalida'})
         
         const user = {
             nombre:result[0][0].nombre,
