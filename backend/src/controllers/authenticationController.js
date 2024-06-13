@@ -11,7 +11,10 @@ export const login = async (req, res) =>{
 try {
     connection.query('CALL sp_login(?)', [email], async (error, result) =>{
       
-        if(result[0].length<1) return res.status(400).json({message: 'Correo invalido'})
+        if(result[0].length==0){
+        console.log(result)
+            return res.status(400).json({message: 'Correo invalido'})
+        } 
          
         const contrasenaSinValidar = result[0][0].contrasena
 
