@@ -1,13 +1,11 @@
-# eCommerce React
-
-![Logo del eCommerce](https://raw.githubusercontent.com/CarlosArturoHernandez/ecommerce-react/main/frontend/src/assets/e-commerce-logo.png)
+# eCommerce
+![Logo del eCommerce](https://skillicons.dev/icons?i=js,react,vite,mysql,git,docker)
 
 ## Descripción
 
-ecommerce-react es una aplicación de eCommerce desarrollada con React y Node.js. Proporciona una plataforma para la venta de productos en línea, con una interfaz de usuario moderna y funcionalidades clave para compradores y vendedores.
+eCommerce es una aplicación de eCommerce desarrollada con React y Node.js. Proporciona una plataforma para la venta de productos en línea, con una interfaz de usuario moderna y funcionalidades clave para compradores y vendedores.
 
 ## Tecnologías Utilizadas
-
 - JavaScript
 - Node.js
 - React

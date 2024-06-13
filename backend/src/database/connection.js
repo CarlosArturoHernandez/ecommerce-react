@@ -1,25 +1,22 @@
-import sql from 'mssql'
+import mysql from 'mysql2'
 import dotenv from 'dotenv'
 
 dotenv.config()
 
-const dbConnection = {
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    server: process.env.SERVER,
-    database: process.env.DATABASE,
-    options: {
-        encrypt: true,
-        trustServerCertificate: true
-    }
+
+export const connection = mysql.createConnection({
+host: process.env.HOST,
+user: process.env.USER,
+password: process.env.PASSWORD,
+database: process.env.DATABASE
+})
+
+
+export async function getConnection(){
+    connection.connect((err)=>{
+        if(err) return console.error('¡Error al conectarse a la base de datos!', err)
+        console.log('Conexión exitosa a la base de datos.')
+    })
 }
 
-export async function getConnection() {
-    try {
-        const pool = await sql.connect(dbConnection)
-        console.log('Conectado a la base de datos')
-        return pool
-    } catch (error) {
-        console.log(`Error al conectarse a la base de datos: ${error.message}`)
-    }
-}
+
