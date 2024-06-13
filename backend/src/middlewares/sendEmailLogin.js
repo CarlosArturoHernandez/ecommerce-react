@@ -8,19 +8,19 @@ export const sendEmailLogin = async ( email, plataform, browser) =>{
 try {
     
     const config = {
-        host: process.env.HOSTEMAIL,
-        port: process.env.PORTEMAIL,
+        host: process.env.HOST_EMAIL,
+        port: process.env.PORT_EMAIL,
         secure: false,
         auth:{
-            user: process.env.USEREMAIL,
-            pass: process.env.USERCONTRASENA
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASSWORD
         }
     }
 
     const transport = nodemailer.createTransport(config)
 
     const mensaje = {
-        from: process.env.USEREMAIL,
+        from: process.env.USER_EMAIL,
         to: email,
         subject: ` Hola` ,
         text:`<p> Has inciado sesión </p>

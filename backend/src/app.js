@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 import cors from 'cors'
 
 dotenv.config()
-const reactPort = process.env.REACTPORT
+const reactPort = process.env.REACT_PORT
 
 const app = express()
 
