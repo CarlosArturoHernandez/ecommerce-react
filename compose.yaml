@@ -1,0 +1,67 @@
+version: "3.8"
+
+networks:
+  myNetwork:
+    driver: bridge # Crea una red puente para que los contenedores puedan comunicarse entre sí.
+
+services:
+  backend:
+    container_name: backend-container # Nombre del contenedor para el backend.
+    build:
+      context: ./backend # Directorio donde se encuentra el Dockerfile del backend.
+      dockerfile: Dockerfile # Nombre del Dockerfile a utilizar.
+    ports:
+      - "4000:3000" # Mapea el puerto 3000 del contenedor al puerto 4000 de la máquina host.
+    environment:
+      - MARIADB_HOST=db # Nombre del servicio de base de datos dentro de la red Docker.
+      - MARIADB_PORT=3306 # Puerto en el que MariaDB está escuchando dentro del contenedor.
+      - MARIADB_USER=carlos # Usuario para la conexión a la base de datos.
+      - MARIADB_PASSWORD=password # Contraseña para el usuario de la base de datos.
+      - MARIADB_DATABASE=ecommercedb # Nombre de la base de datos a utilizar.
+    networks:
+      - myNetwork # Conecta el contenedor a la red myNetwork.
+    depends_on:
+      - db # Asegura que el contenedor de la base de datos se inicie antes que el backend.
+    env_file: ./backend/.env # Archivo de variables de entorno adicional para el backend.
+
+  frontend:
+    container_name: frontend-container # Nombre del contenedor para el frontend.
+    build:
+      context: ./frontend # Directorio donde se encuentra el Dockerfile del frontend.
+      dockerfile: Dockerfile # Nombre del Dockerfile a utilizar.
+    ports:
+      - "5174:5173" # Mapea el puerto 5173 del contenedor al puerto 5174 de la máquina host.
+    networks:
+      - myNetwork # Conecta el contenedor a la red myNetwork.
+    depends_on:
+      - backend # Asegura que el contenedor del backend se inicie antes que el frontend.
+
+  db:
+    container_name: mariadb-container # Nombre del contenedor para MariaDB.
+    image: mariadb # Imagen de Docker a utilizar para MariaDB.
+    restart: always # Asegura que el contenedor se reinicie automáticamente en caso de fallo.
+    ports:
+      - "3307:3306" # Mapea el puerto 3306 del contenedor al puerto 3307 de la máquina host.
+    environment:
+      - MARIADB_USER=root # Usuario root para la base de datos.
+      - MARIADB_PASSWORD=password # Contraseña para el usuario root.
+      - MARIADB_DATABASE=ecommercedb # Nombre de la base de datos a crear/utilizar.
+      - MARIADB_ROOT_PASSWORD=my-secret-pw # Contraseña para el usuario root.
+    volumes:
+      - db_data:/var/lib/mysql # Monta un volumen persistente para los datos de la base de datos.
+    networks:
+      - myNetwork # Conecta el contenedor a la red myNetwork.
+
+  phpmyadmin:
+    image: phpmyadmin # Imagen de Docker a utilizar para phpMyAdmin.
+    restart: always # Asegura que el contenedor se reinicie automáticamente en caso de fallo.
+    ports:
+      - 8080:80 # Mapea el puerto 80 del contenedor al puerto 8080 de la máquina host.
+    environment:
+      - PMA_HOST=db # Nombre del servicio de base de datos dentro de la red Docker.
+      - MYSQL_ROOT_PASSWORD=my-secret-pw # Contraseña del usuario root de MariaDB.
+    networks:
+      - myNetwork # Conecta el contenedor a la red myNetwork.
+
+volumes:
+  db_data: # Define un volumen para almacenar los datos de la base de datos de manera persistente.
