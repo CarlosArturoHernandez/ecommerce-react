@@ -6,6 +6,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Login from './pages/Login.jsx'
 import Home from './pages/Home.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
+import ProtectedRoute from './ProtectedRoute.jsx'
 
 function App() {
 
@@ -15,7 +16,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login/>}/>
+          <ProtectedRoute>
           <Route path="/home" element={<Home/>}/>
+
+          </ProtectedRoute>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

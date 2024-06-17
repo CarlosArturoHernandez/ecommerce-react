@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useForm} from 'react-hook-form'
 import { useAuth } from '../context/AuthContext';
+import toast, { Toaster } from 'react-hot-toast'
 
 function Copyright(props) {
   return (
@@ -39,13 +40,36 @@ export default function Login() {
     formState: {errors},
   } = useForm();
 
-  const{requestFormData} = useAuth()
+  const{
+    requestFormData, 
+    isAuthenticated, 
+    successMessage, 
+    stateRequest,
+    loginErrors,
+    errorMessage
+  
+  } = useAuth()
 
   const getData = handleSubmit (data => {
     requestFormData(data)
   })
+
+  console.log(isAuthenticated)
+  console.log(successMessage)
+  React.useEffect(() => {
+    if (stateRequest) {
+      toast.success(successMessage)
+    }
+  }, [stateRequest])
+
+  React.useEffect(() => {
+    if (loginErrors) {
+      toast.error(errorMessage)
+    }
+  }, [loginErrors])
   
   return (
+    <>
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -115,5 +139,7 @@ export default function Login() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    <Toaster />
+    </>
   );
 }
