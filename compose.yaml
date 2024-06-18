@@ -13,11 +13,11 @@ services:
     ports:
       - "4000:3000" # Mapea el puerto 3000 del contenedor al puerto 4000 de la máquina host.
     environment:
-      - MARIADB_HOST=db # Nombre del servicio de base de datos dentro de la red Docker.
-      - MARIADB_PORT=3306 # Puerto en el que MariaDB está escuchando dentro del contenedor.
-      - MARIADB_USER=carlos # Usuario para la conexión a la base de datos.
-      - MARIADB_PASSWORD=password # Contraseña para el usuario de la base de datos.
-      - MARIADB_DATABASE=ecommercedb # Nombre de la base de datos a utilizar.
+      - MYSQL_HOST=db # Nombre del servicio de base de datos dentro de la red Docker.
+      - MYSQL_PORT=3306 # Puerto en el que MYSQL está escuchando dentro del contenedor.
+      - MYSQL_USER=carlos # Usuario para la conexión a la base de datos.
+      - MYSQL_PASSWORD=password # Contraseña para el usuario de la base de datos.
+      - MYSQL_DATABASE=ecommercedb # Nombre de la base de datos a utilizar.
     networks:
       - myNetwork # Conecta el contenedor a la red myNetwork.
     depends_on:
@@ -37,16 +37,16 @@ services:
       - backend # Asegura que el contenedor del backend se inicie antes que el frontend.
 
   db:
-    container_name: mariadb-container # Nombre del contenedor para MariaDB.
-    image: mariadb # Imagen de Docker a utilizar para MariaDB.
+    container_name: mysql-container # Nombre del contenedor para MYSQL.
+    image: mysql:latest # Imagen de Docker a utilizar para MYSQL.
     restart: always # Asegura que el contenedor se reinicie automáticamente en caso de fallo.
     ports:
       - "3307:3306" # Mapea el puerto 3306 del contenedor al puerto 3307 de la máquina host.
     environment:
-      - MARIADB_USER=root # Usuario root para la base de datos.
-      - MARIADB_PASSWORD=password # Contraseña para el usuario root.
-      - MARIADB_DATABASE=ecommercedb # Nombre de la base de datos a crear/utilizar.
-      - MARIADB_ROOT_PASSWORD=my-secret-pw # Contraseña para el usuario root.
+      - MYSQL_ROOT_PASSWORD=root # Contraseña para el usuario root.
+      - MYSQL_DATABASE=ecommercedb # Nombre de la base de datos a crear/utilizar.
+      - MYSQL_USER=carlos # Usuario para la base de datos.
+      - MYSQL_PASSWORD=password # Contraseña para el usuario de la base de datos.
     volumes:
       - db_data:/var/lib/mysql # Monta un volumen persistente para los datos de la base de datos.
     networks:
@@ -59,7 +59,8 @@ services:
       - 8080:80 # Mapea el puerto 80 del contenedor al puerto 8080 de la máquina host.
     environment:
       - PMA_HOST=db # Nombre del servicio de base de datos dentro de la red Docker.
-      - MYSQL_ROOT_PASSWORD=my-secret-pw # Contraseña del usuario root de MariaDB.
+      - PMA_USER=root # Usuario root de MySQL.
+      - PMA_PASSWORD=root # Contraseña del usuario root de MySQL.
     networks:
       - myNetwork # Conecta el contenedor a la red myNetwork.
 
