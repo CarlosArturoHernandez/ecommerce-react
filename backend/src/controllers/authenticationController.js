@@ -19,7 +19,7 @@ export const login = async (req, res) => {
 
       if (!result || !result[0] || result[0].length === 0) {
         console.log("Resultado de la consulta de login:", result);
-        return res.status(400).json({ message: "Correo invalido" });
+        return res.status(400).json({ message: "Credenciales incorrectas" });
       }
 
       const contrasenaSinValidar = result[0][0].contrasena;
@@ -29,7 +29,7 @@ export const login = async (req, res) => {
       );
 
       if (!validacionContrasena) {
-        return res.status(400).json({ message: "Contrasena invalida" });
+        return res.status(400).json({ message: "Credenciales incorrectas" });
       }
 
       const user = {

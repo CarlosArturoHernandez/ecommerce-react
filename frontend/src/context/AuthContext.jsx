@@ -13,7 +13,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [errors, setErrors ] = useState(false)
+    const [loginErrors, setLoginErrors ] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const [successMessage, setSuccessMessage] = useState('')
     const [stateRequest, setStateRequest] = useState(false)
@@ -21,14 +21,31 @@ export const AuthProvider = ({children}) => {
     const requestFormData = async(data) => {
         try {
             const request = await loginRequest(data)
-            console.log(request.data)
+            setIsAuthenticated(true)
+            setSuccessMessage(request.data.message)
+            setStateRequest(true)
+            setTimeout(() => {
+                setStateRequest(false)
+            }, 1000);
         } catch (error) {
-            console.log(error)
+            console.log(error.response.data.message)
+            setErrorMessage(error.response.data.message)
+            setLoginErrors(true)
+            setTimeout(() => {
+                setLoginErrors(false)
+            }, 1000);
         }
     }
     return (
         <AuthContext.Provider
-            value={{requestFormData}}
+            value={{
+                requestFormData, 
+                isAuthenticated, 
+                successMessage, 
+                stateRequest, 
+                loginErrors, 
+                errorMessage
+            }}
         >
             {children}
         </AuthContext.Provider>
