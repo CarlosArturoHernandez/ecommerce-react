@@ -4,11 +4,12 @@ services:
   mysqldb:
     container_name: mysql-container
     image: mysql
+    env_file: ./.env
     environment:
-      MYSQL_ROOT_PASSWORD: 123
-      MYSQL_DATABASE: ecommercedb
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
     ports:
-      - "3307:3306"
+      - "${DB_LOCAL_PORT}:${DB_DOCKER_PORT}"
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -18,11 +19,11 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    env_file: ./backend/.env
+    env_file: ./.env
     depends_on:
       - mysqldb
     ports:
-      - "4000:4000"
+      - "${NODEJS_PORT}:${NODEJS_PORT}"
     restart: always
 
   frontend:
@@ -30,12 +31,11 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    env_file: ./frontend/.env
+    env_file: ./.env
     depends_on:
-      - mysqldb
       - backend
     ports:
-      - "5174:5173"
+      - "${REACT_LOCAL_PORT}:${REACT_DOCKER_PORT}"
     restart: always
 
 networks:

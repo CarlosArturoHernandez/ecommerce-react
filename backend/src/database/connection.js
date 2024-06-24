@@ -1,14 +1,14 @@
 import mysql from 'mysql2';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({path: '../../../.env'});
 
 export const connection = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: 'root',
-    password: process.env.MYSQL_ROOT_PASSWORD,
-    port: process.env.MYSQL_DOCKER_PORT,
-    database:'ecommercedb'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_DOCKER_PORT,
+    database: process.env.DB_DATABASE
 });
 
 export async function getConnection() {
