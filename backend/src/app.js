@@ -4,8 +4,8 @@ import useragent from 'express-useragent'
 import dotenv from "dotenv"
 import cors from 'cors'
 
-dotenv.config()
-const reactPort = process.env.REACT_PORT
+dotenv.config({ path: '../../.env' })
+const reactPort = process.env.REACT_LOCAL_PORT
 
 const app = express()
 
