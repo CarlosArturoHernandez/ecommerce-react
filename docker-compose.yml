@@ -1,7 +1,6 @@
 version: '3.9'
 
 services:
-
   watchtower:
     container_name: watchtower
     image: containrrr/watchtower
@@ -31,8 +30,7 @@ services:
       - mysqldb
     ports:
       - "${NODEJS_PORT}:${NODEJS_PORT}"
-    volumes:
-      - ./backend:/app
+    
     restart: unless-stopped
 
   frontend:
@@ -43,9 +41,9 @@ services:
       - backend
     ports:
       - "${REACT_LOCAL_PORT}:${REACT_DOCKER_PORT}"
-    volumes:
-      - ./frontend:/app
-    restart: unless-stopped
+   
+    command: npm run dev
+    restart: always
 
 networks:
   my-network:
