@@ -1,6 +1,15 @@
 version: '3.9'
 
 services:
+
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 10 --cleanup --include-restarting
+    restart: unless-stopped
+
   mysqldb:
     container_name: mysql-container
     image: mysql
@@ -12,31 +21,31 @@ services:
       - "${DB_LOCAL_PORT}:${DB_DOCKER_PORT}"
     volumes:
       - db_data:/var/lib/mysql
-    restart: always
+    restart: unless-stopped
 
   backend:
     container_name: backend-container
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: dani070707/ecommerce-react-backend:latest
     env_file: ./.env
     depends_on:
       - mysqldb
     ports:
       - "${NODEJS_PORT}:${NODEJS_PORT}"
-    restart: always
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
 
   frontend:
     container_name: frontend-container
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: dani070707/ecommerce-react-frontend:latest
     env_file: ./.env
     depends_on:
       - backend
     ports:
       - "${REACT_LOCAL_PORT}:${REACT_DOCKER_PORT}"
-    restart: always
+    volumes:
+      - ./frontend:/app
+    restart: unless-stopped
 
 networks:
   my-network:
