@@ -9,10 +9,10 @@ console.log(process.env.DB_HOST)
 console.log(process.env.DB_DATABASE)
 
 export const connection = mysql.createConnection({
-    host: 'localhost',  // Host de la base de datos
-    user: 'dani', // Usuario de la base de datos
-    password: '123', // Contraseña de la base de datos
-    database: 'ecommercedb' // Nombre de la base de datos a la que te conectas
+    host: process.env.DB_HOST,  // Host de la base de datos
+    user: process.env.DB_USER, // Usuario de la base de datos
+    password: process.env.PASSWORD, // Contraseña de la base de datos
+    database: process.env.DB_DATABASE // Nombre de la base de datos a la que te conectas
 })
 
 
